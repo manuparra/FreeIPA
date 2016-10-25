@@ -24,6 +24,13 @@ In our deployment we will create the next:
 `hostnamectl set-hostname ipa.centos.local`
 3. Edit `/etc/hosts` and add:
 `192.168.10.200 ipa.centos.local ipa`
+4. Download and install freeIPA packages with: 
+`yum install ipa-server bind-dyndb-ldap ipa-server-dns`
+5. Install and set freeIPA services:
+`ipa-server-install --setup-dns`
+6. Start authentication: 
+`kinit admin`
+7. Create a few users for testing pourpose:
 
 
 

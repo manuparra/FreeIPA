@@ -19,21 +19,25 @@ In our deployment we will create the next:
 ## Installing Master IPA Server.
 
 1. First of all, execute command: 
-
 `yum -y update`
-
 2. Set the name of the IPA Server: 
 `hostnamectl set-hostname ipa.centos.local`
-3. Edit `/etc/hosts` and add:
+3. Edit `/etc/hosts` and add: 
 `192.168.10.200 ipa.centos.local ipa`
 4. Download and install freeIPA packages with: 
 `yum install ipa-server bind-dyndb-ldap ipa-server-dns`
-5. Install and set freeIPA services:
+5. Install and set freeIPA services: 
 `ipa-server-install --setup-dns`
 6. Start authentication: 
 `kinit admin`
-7. Create a few users for testing pourpose:
-
+7. Set default shell for the users:
+`ipa config-mod --defaultshell=/bin/bash`
+8. Create a few users:
+`ipa user-add manuparra --first=Manuel --last=Parra --password`
+..+ Create the home folder for the user created:
+`mkdir -m0750 -p /home/mparra`
+..+ Set permissions for the user: `chown XXXXXXXX:XXXXXXXX /home/mparra/` where `XXXXXXXX` is the UID returned by item `8`
+9. Check if IPA works
 
 
 

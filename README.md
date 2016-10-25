@@ -19,7 +19,9 @@ In our deployment we will create the next:
 ## Installing Master IPA Server.
 
 1. First of all, execute command: 
+
 `yum -y update`
+
 2. Set the name of the IPA Server: 
 `hostnamectl set-hostname ipa.centos.local`
 3. Edit `/etc/hosts` and add:

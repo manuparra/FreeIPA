@@ -32,11 +32,9 @@ In our deployment we will create the next:
 `kinit admin`
 7. Set default shell for the users:
 `ipa config-mod --defaultshell=/bin/bash`
-8. Create a few users:
-`ipa user-add manuparra --first=Manuel --last=Parra --password`
-..* Create the home folder for the user created:
-`mkdir -m0750 -p /home/mparra`
-..* Set permissions for the user: `chown XXXXXXXX:XXXXXXXX /home/mparra/` where `XXXXXXXX` is the UID returned by item `8`
+8. Create a few users: `ipa user-add manuparra --first=Manuel --last=Parra --password`
+...* Create the home folder for the user created:`mkdir -m0750 -p /home/mparra`
+...* Set permissions for the user: `chown XXXXXXXX:XXXXXXXX /home/mparra/` where `XXXXXXXX` is the UID returned by item `8`
 9. Check if IPA works
 
 

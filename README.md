@@ -18,6 +18,9 @@ In our deployment we will create the next:
 
 ## Installing Master IPA Server `ipa.centos.local`
 
+1. First of all, execute command:
+`yum -y update`
+2. dds
 
 
 

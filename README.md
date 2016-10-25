@@ -16,11 +16,14 @@ In our deployment we will create the next:
 
 ![alt text](https://github.com/manuparra/FreeIPA/raw/master/architecture.png "Architecture")
 
-## Installing Master IPA Server `ipa.centos.local`
+## Installing Master IPA Server.
 
-1. First of all, execute command:
+1. First of all, execute command: 
 `yum -y update`
-2. dds
+2. Set the name of the IPA Server: 
+`hostnamectl set-hostname ipa.centos.local`
+3. Edit `/etc/hosts` and add:
+`192.168.10.200 ipa.centos.local ipa`
 
 
 

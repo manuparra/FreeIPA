@@ -10,7 +10,12 @@ In the IPA domain, there are three types of machines:
 + Clients, which connect to the Servers to authentication and authorization
 
 In our deployment we will create the next architecture:
+![alt text](https://github.com/manuparra/FreeIPA/raw/master/architecture.png "Architecture")
 
-Inline-style: 
-![alt text](https://github.com/manuparra/FreeIPA/raw/master/architecture.png "Logo Title Text 1")
++ One IPA master server with name: `ipa.centos.local` and ip: `192.168.10.200`
++ One IPA replica of the master: `ipa2.centos.local` and ip: `192.168.10.201`
+
+
+
+
 

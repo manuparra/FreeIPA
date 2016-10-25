@@ -9,4 +9,8 @@ In the IPA domain, there are three types of machines:
 + Replicas, which are essentially copies of servers (and, once copied, are identical to serve)
 + Clients, which connect to the Servers to authentication and authorization
 
-In our deployment we will create the next architecture
+In our deployment we will create the next architecture:
+
+Inline-style: 
+![alt text](https://github.com/manuparra/FreeIPA/raw/master/achitecture.png "Logo Title Text 1")
+

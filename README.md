@@ -12,5 +12,5 @@ In the IPA domain, there are three types of machines:
 In our deployment we will create the next architecture:
 
 Inline-style: 
-![alt text](https://github.com/manuparra/FreeIPA/raw/master/achitecture.png "Logo Title Text 1")
+![alt text](https://github.com/manuparra/FreeIPA/raw/master/architecture.png "Logo Title Text 1")
 

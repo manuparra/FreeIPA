@@ -18,17 +18,17 @@ on which you're setting up server software. Using the form
 Example: master.example.com.
 
 
-Server host name [ipa.centos.local]: **ipa.centos.local**
+Server host name [ipa.centos.local]: **your host name. ie: ipa.centos.local**
 
 Warning: skipping DNS resolution of host ipa.centos.local
 The domain name has been determined based on the host name.
 
-Please confirm the domain name [centos.local]: **centos.local**
+Please confirm the domain name [centos.local]: **your domain name. ie: centos.local**
 
 The kerberos protocol requires a Realm name to be defined.
 This is typically the domain name converted to uppercase.
 
-Please provide a realm name [CENTOS.LOCAL]: **CENTOS.LOCAL**
+Please provide a realm name [CENTOS.LOCAL]: **yor realm name: ie: CENTOS.LOCAL**
 Certain directory server operations require an administrative user.
 This user is referred to as the Directory Manager and has full access
 to the Directory for system management tasks and will be added to the

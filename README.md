@@ -63,22 +63,38 @@ This part of the installation requiere jump to replica server and jump to the ma
 
 ### Go to **ipa.centos.local** and **ipa2.centos.local** (replica), first of all we need to add to `/etc/hosts` the follow entries: 
 
-`192.168.10.220 ipa.centos.local ipa
+```
+192.168.10.220 ipa.centos.local ipa
 
-192.168.10.221 ipa2.centos.local ipa2`
+192.168.10.221 ipa2.centos.local ipa2ç
+
+´´´
 
 ### Go to Replica server **(ipa2.centos.local)**:
 
 1. Update packages: `yum update`
 2. Set the name of the server to ipa2.centos.local: `hostnamectl set-hostname ipa2.centos.local`
-3. Install the packages of freeIPA with `yum install ipa-server bind bind-dyndb-ldap`
+3. Install the packages of freeIPA with `yum install ipa-server bind bind-dyndb-ldap ipa-server-dns`
+4. VERY IMPORTANT: DO NOT execute: ~~ipa-server-install --setup-dns~~
 
 ### Go to main server **(ipa.centos.local)**:
 
+1. Start authentication with Kerberos ticket: 
+`kinit admin`
+2. Prepare a replica with this command: `ipa-replica-prepare ipa2.centos.local --ip-address 192.168.10.201`  Note IP of replica server is 192.168.10.201
+3. The previous command creates a file in `/var/lib/ipa/replica-info-ipa2.centos.local.gpg`
+4. This file `/var/lib/ipa/replica-info-ipa2.centos.local.gpg` must be copied to ipa2.centos.local, so we execute this: `scp  /var/lib/ipa/replica-info-ipa2.centos.local.gpg root@192.168.10.225:/var/lib/ipa/`
 
+### Go to Replica server **(ipa2.centos.local)**:
 
-
-
+1. Execute again `kinit admin`
+2. Execute `ipa-replica-install --setup-ca --setup-dns --no-forwarders /var/lib/ipa/replica-info-ipa2.centos.local.gpg` . Note that `/var/lib/ipa/replica-info-ipa2.centos.local.gpg` must be there, because in the previous step it was copied from main server.
+3. Wait a few minutes.
+4. That's all. Verify if your new replica is working executing this command: `ipa-replica-manage list` . It returns the next:
+  
+  ```ipa2.centos.local: master
+  
+  ipa.centos.local: master```
 
 
 

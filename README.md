@@ -19,9 +19,9 @@ In our deployment we will create the next:
 ## Requeriments
 
 + Both servers with the same version of Operanting System. In this tutorial we install lastest version of CENTOS7.
-+ Lastest versión of freeIPA from `yum`  (version in this moment: 4.2.0-15)
-+ I had problem with low RAM, so I update memory of each server to 3GB
-+ Min of 10GB of HDD storage is Okay
++ Lastest versión of freeIPA from `yum`  (version in this moment: 4.2.0-15).
++ I had problem with low RAM, so I update memory of each server to 3GB.
++ Min. of 10GB of HDD storage for each server is okay.
 
 
 
@@ -36,7 +36,7 @@ In our deployment we will create the next:
 `192.168.10.200 ipa.centos.local ipa`
 4. Download and install freeIPA packages with: 
 `yum install ipa-server bind-dyndb-ldap ipa-server-dns`
-5. Install and set freeIPA services. Follow the questions in 
+5. Install and set freeIPA services. Follow the steps of this part here: 
 `ipa-server-install --setup-dns`
 6. Start authentication: 
 `kinit admin`

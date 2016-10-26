@@ -16,6 +16,16 @@ In our deployment we will create the next:
 
 ![alt text](https://github.com/manuparra/FreeIPA/raw/master/architecture.png "Architecture")
 
+## Requeriments
+
++ Both servers with the same version of Operanting System. In this tutorial we install lastest version of CENTOS7.
++ Lastest versión of freeIPA from `yum`  (version in this moment: 4.2.0-15)
++ I had problem with low RAM, so I update memory of each server to 3GB
++ Min of 10GB of HDD storage is Okay
+
+
+
+
 ## Installing Master IPA Server.
 
 1. First of all, execute command: 
@@ -26,17 +36,13 @@ In our deployment we will create the next:
 `192.168.10.200 ipa.centos.local ipa`
 4. Download and install freeIPA packages with: 
 `yum install ipa-server bind-dyndb-ldap ipa-server-dns`
-5. Install and set freeIPA services: 
+5. Install and set freeIPA services. Follow the questions in 
 `ipa-server-install --setup-dns`
 6. Start authentication: 
 `kinit admin`
 7. Set default shell for the users:
 `ipa config-mod --defaultshell=/bin/bash`
-8. Create a few users: `ipa user-add manuparra --first=Manuel --last=Parra --password`
-
-- Create the home folder for the user created:`mkdir -m0750 -p /home/mparra`
-- Set permissions for the user: `chown XXXXXXXX:XXXXXXXX /home/mparra/` where `XXXXXXXX` is the UID returned by item `8`
-
+8. Create a few users: `ipa user-add manuparra --first=Manuel --last=Parra --password` . Create the home folder for the user created:`mkdir -m0750 -p /home/mparra` and set permissions for the user: `chown XXXXXXXX:XXXXXXXX /home/mparra/` where `XXXXXXXX` is the UID returned by item `8`
 9. Check if IPA works. Exit of the server and try to connect: `ssh manuparra@192.168.10.220` If it is working, ssh ask to you about change your password and retype it twice. If you can access to the server, IPA server is Working.
 
 

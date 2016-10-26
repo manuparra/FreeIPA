@@ -1,0 +1,266 @@
+The log file for this installation can be found in /var/log/ipaserver-install.log
+==============================================================================
+This program will set up the IPA Server.
+
+This includes:
+  * Configure a stand-alone CA (dogtag) for certificate management
+  * Configure the Network Time Daemon (ntpd)
+  * Create and configure an instance of Directory Server
+  * Create and configure a Kerberos Key Distribution Center (KDC)
+  * Configure Apache (httpd)
+  * Configure DNS (bind)
+
+To accept the default shown in brackets, press the Enter key.
+
+Enter the fully qualified domain name of the computer
+on which you're setting up server software. Using the form
+<hostname>.<domainname>
+Example: master.example.com.
+
+
+Server host name [ipa.centos.local]: **ipa.centos.local**
+
+Warning: skipping DNS resolution of host ipa.centos.local
+The domain name has been determined based on the host name.
+
+Please confirm the domain name [centos.local]: **centos.local**
+
+The kerberos protocol requires a Realm name to be defined.
+This is typically the domain name converted to uppercase.
+
+Please provide a realm name [CENTOS.LOCAL]: **CENTOS.LOCAL**
+Certain directory server operations require an administrative user.
+This user is referred to as the Directory Manager and has full access
+to the Directory for system management tasks and will be added to the
+instance of directory server created for IPA.
+The password must be at least 8 characters long.
+
+Directory Manager password: **<your password for DM>**
+Password (confirm): **<your password for DM>**
+
+The IPA server requires an administrative user, named 'admin'.
+This user is a regular system account used for IPA server administration.
+
+IPA admin password: **<your admin password for Admin User IPA>**
+Password (confirm): **<your admin password for Admin User IPA>**
+
+Existing BIND configuration detected, overwrite? [no]: **yes**
+Do you want to configure DNS forwarders? [yes]: **yes**
+Enter an IP address for a DNS forwarder, or press Enter to skip: **8.8.8.8**
+DNS forwarder 8.8.8.8 added. You may add another.
+Enter an IP address for a DNS forwarder, or press Enter to skip: 
+Checking DNS forwarders, please wait ...
+Do you want to configure the reverse zone? [yes]: **yes**
+Please specify the reverse zone name [10.168.192.in-addr.arpa.]: **10.168.192.in-addr.arpa.**
+Using reverse zone(s) 10.168.192.in-addr.arpa.
+
+The IPA Master Server will be configured with:
+Hostname:       ipa.centos.local
+IP address(es): 192.168.10.220
+Domain name:    centos.local
+Realm name:     CENTOS.LOCAL
+
+BIND DNS server will be configured to serve IPA domain with:
+Forwarders:    8.8.8.8
+Reverse zone(s):  10.168.192.in-addr.arpa.
+
+Continue to configure the system with these values? [no]: **yes**
+
+The following operations may take some minutes to complete.
+Please wait until the prompt is returned.
+
+Adding [192.168.10.225 ipa2.centos.local] to your /etc/hosts file
+Configuring NTP daemon (ntpd)
+  [1/4]: stopping ntpd
+  [2/4]: writing configuration
+  [3/4]: configuring ntpd to start on boot
+  [4/4]: starting ntpd
+Done configuring NTP daemon (ntpd).
+Configuring directory server (dirsrv). Estimated time: 1 minute
+  [1/42]: creating directory server user
+  [2/42]: creating directory server instance
+  [3/42]: adding default schema
+  [4/42]: enabling memberof plugin
+  [5/42]: enabling winsync plugin
+  [6/42]: configuring replication version plugin
+  [7/42]: enabling IPA enrollment plugin
+  [8/42]: enabling ldapi
+  [9/42]: configuring uniqueness plugin
+  [10/42]: configuring uuid plugin
+  [11/42]: configuring modrdn plugin
+  [12/42]: configuring DNS plugin
+  [13/42]: enabling entryUSN plugin
+  [14/42]: configuring lockout plugin
+  [15/42]: creating indices
+  [16/42]: enabling referential integrity plugin
+  [17/42]: configuring certmap.conf
+  [18/42]: configure autobind for root
+  [19/42]: configure new location for managed entries
+  [20/42]: configure dirsrv ccache
+  [21/42]: enable SASL mapping fallback
+  [22/42]: restarting directory server
+  [23/42]: adding default layout
+  [24/42]: adding delegation layout
+  [25/42]: creating container for managed entries
+  [26/42]: configuring user private groups
+  [27/42]: configuring netgroups from hostgroups
+  [28/42]: creating default Sudo bind user
+  [29/42]: creating default Auto Member layout
+  [30/42]: adding range check plugin
+  [31/42]: creating default HBAC rule allow_all
+  [32/42]: adding entries for topology management
+  [33/42]: initializing group membership
+  [34/42]: adding master entry
+  [35/42]: initializing domain level
+  [36/42]: configuring Posix uid/gid generation
+  [37/42]: adding replication acis
+  [38/42]: enabling compatibility plugin
+  [39/42]: activating sidgen plugin
+  [40/42]: activating extdom plugin
+  [41/42]: tuning directory server
+  [42/42]: configuring directory to start on boot
+Done configuring directory server (dirsrv).
+Configuring certificate server (pki-tomcatd). Estimated time: 3 minutes 30 seconds
+  [1/28]: creating certificate server user
+  [2/28]: configuring certificate server instance
+  [3/28]: stopping certificate server instance to update CS.cfg
+  [4/28]: backing up CS.cfg
+  [5/28]: disabling nonces
+  [6/28]: set up CRL publishing
+  [7/28]: enable PKIX certificate path discovery and validation
+  [8/28]: starting certificate server instance
+  [9/28]: creating RA agent certificate database
+  [10/28]: importing CA chain to RA certificate database
+  [11/28]: fixing RA database permissions
+  [12/28]: setting up signing cert profile
+  [13/28]: setting audit signing renewal to 2 years
+  [14/28]: restarting certificate server
+  [15/28]: requesting RA certificate from CA
+  [16/28]: issuing RA agent certificate
+  [17/28]: adding RA agent as a trusted user
+  [18/28]: authorizing RA to modify profiles
+  [19/28]: configure certmonger for renewals
+  [20/28]: configure certificate renewals
+  [21/28]: configure RA certificate renewal
+  [22/28]: configure Server-Cert certificate renewal
+  [23/28]: Configure HTTP to proxy connections
+  [24/28]: restarting certificate server
+  [25/28]: migrating certificate profiles to LDAP
+  [26/28]: importing IPA certificate profiles
+  [27/28]: adding default CA ACL
+  [28/28]: updating IPA configuration
+Done configuring certificate server (pki-tomcatd).
+Configuring directory server (dirsrv). Estimated time: 10 seconds
+  [1/3]: configuring ssl for ds instance
+  [2/3]: restarting directory server
+  [3/3]: adding CA certificate entry
+Done configuring directory server (dirsrv).
+Configuring Kerberos KDC (krb5kdc). Estimated time: 30 seconds
+  [1/10]: adding sasl mappings to the directory
+  [2/10]: adding kerberos container to the directory
+  [3/10]: configuring KDC
+  [4/10]: initialize kerberos container
+WARNING: Your system is running out of entropy, you may experience long delays
+  [5/10]: adding default ACIs
+  [6/10]: creating a keytab for the directory
+  [7/10]: creating a keytab for the machine
+  [8/10]: adding the password extension to the directory
+  [9/10]: starting the KDC
+  [10/10]: configuring KDC to start on boot
+Done configuring Kerberos KDC (krb5kdc).
+Configuring kadmin
+  [1/2]: starting kadmin 
+  [2/2]: configuring kadmin to start on boot
+Done configuring kadmin.
+Configuring ipa_memcached
+  [1/2]: starting ipa_memcached 
+  [2/2]: configuring ipa_memcached to start on boot
+Done configuring ipa_memcached.
+Configuring ipa-otpd
+  [1/2]: starting ipa-otpd 
+  [2/2]: configuring ipa-otpd to start on boot
+Done configuring ipa-otpd.
+Configuring the web interface (httpd). Estimated time: 1 minute
+  [1/19]: setting mod_nss port to 443
+  [2/19]: setting mod_nss protocol list to TLSv1.0 - TLSv1.2
+  [3/19]: setting mod_nss password file
+  [4/19]: enabling mod_nss renegotiate
+  [5/19]: adding URL rewriting rules
+  [6/19]: configuring httpd
+  [7/19]: configure certmonger for renewals
+  [8/19]: setting up ssl
+  [9/19]: importing CA certificates from LDAP
+  [10/19]: setting up browser autoconfig
+  [11/19]: publish CA cert
+  [12/19]: creating a keytab for httpd
+  [13/19]: clean up any existing httpd ccache
+  [14/19]: configuring SELinux for httpd
+  [15/19]: create KDC proxy user
+  [16/19]: create KDC proxy config
+  [17/19]: enable KDC proxy
+  [18/19]: restarting httpd
+  [19/19]: configuring httpd to start on boot
+Done configuring the web interface (httpd).
+Applying LDAP updates
+Upgrading IPA:
+  [1/9]: stopping directory server
+  [2/9]: saving configuration
+  [3/9]: disabling listeners
+  [4/9]: enabling DS global lock
+  [5/9]: starting directory server
+  [6/9]: upgrading server
+  [7/9]: stopping directory server
+  [8/9]: restoring configuration
+  [9/9]: starting directory server
+Done.
+Restarting the directory server
+Restarting the KDC
+Configuring DNS (named)
+  [1/12]: generating rndc key file
+WARNING: Your system is running out of entropy, you may experience long delays
+  [2/12]: adding DNS container
+  [3/12]: setting up our zone
+  [4/12]: setting up reverse zone
+  [5/12]: setting up our own record
+  [6/12]: setting up records for other masters
+  [7/12]: adding NS record to the zones
+  [8/12]: setting up CA record
+  [9/12]: setting up kerberos principal
+  [10/12]: setting up named.conf
+  [11/12]: configuring named to start on boot
+  [12/12]: changing resolv.conf to point to ourselves
+Done configuring DNS (named).
+Configuring DNS key synchronization service (ipa-dnskeysyncd)
+  [1/7]: checking status
+  [2/7]: setting up bind-dyndb-ldap working directory
+  [3/7]: setting up kerberos principal
+  [4/7]: setting up SoftHSM
+  [5/7]: adding DNSSEC containers
+  [6/7]: creating replica keys
+  [7/7]: configuring ipa-dnskeysyncd to start on boot
+Done configuring DNS key synchronization service (ipa-dnskeysyncd).
+Restarting ipa-dnskeysyncd
+Restarting named
+Restarting the web server
+==============================================================================
+Setup complete
+
+Next steps:
+	1. You must make sure these network ports are open:
+		TCP Ports:
+		  * 80, 443: HTTP/HTTPS
+		  * 389, 636: LDAP/LDAPS
+		  * 88, 464: kerberos
+		  * 53: bind
+		UDP Ports:
+		  * 88, 464: kerberos
+		  * 53: bind
+		  * 123: ntp
+
+	2. You can now obtain a kerberos ticket using the command: 'kinit admin'
+	   This ticket will allow you to use the IPA tools (e.g., ipa user-add)
+	   and the web user interface.
+
+Be sure to back up the CA certificates stored in /root/cacert.p12
+These files are required to create replicas. The password for these
+files is the Directory Manager password

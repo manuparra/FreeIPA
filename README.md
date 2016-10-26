@@ -92,9 +92,12 @@ This part of the installation requiere jump to replica server and jump to the ma
 3. Wait a few minutes.
 4. That's all. Verify if your new replica is working executing this command: `ipa-replica-manage list` . It returns the next:
   
-```ipa2.centos.local: master
+```
+ipa2.centos.local: master
   
-  ipa.centos.local: master```
+ipa.centos.local: master
+
+```
 
 
 

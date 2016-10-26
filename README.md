@@ -1,5 +1,6 @@
-# FreeIPA installation and deployment of the replica multimaster on CENTOS7
-FreeIPA installation Tutorial, Scripts and Procedures
+# FreeIPA installation and deployment of one replica multimaster on CENTOS7
+
+FreeIPA installation Tutorial, Scripts and Procedures, step by step.
 
 ## Planning the server and architecture to deploy. Requirements.
 

@@ -66,9 +66,9 @@ This part of the installation requiere jump to replica server and jump to the ma
 ```
 192.168.10.220 ipa.centos.local ipa
 
-192.168.10.221 ipa2.centos.local ipa2ç
+192.168.10.221 ipa2.centos.local ipa2
+```
 
-´´´
 
 ### Go to Replica server **(ipa2.centos.local)**:
 

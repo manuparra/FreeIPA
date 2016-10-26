@@ -38,7 +38,7 @@ In our deployment we will create the next:
 `yum install ipa-server bind-dyndb-ldap ipa-server-dns`
 5. Install and set freeIPA services: 
 `ipa-server-install --setup-dns`
-6. Follow the steps of item `5`: [here!](questions.txt)
+6. Follow the steps of previous item : [here!](questions.txt)
 7. Next steps:
 	1. You must make sure these network ports are open TCP Ports:
 		  * 80, 443: HTTP/HTTPS
@@ -53,7 +53,7 @@ In our deployment we will create the next:
 `kinit admin`
 9. Set default shell for the users:
 `ipa config-mod --defaultshell=/bin/bash`
-10. Create a few users: `ipa user-add manuparra --first=Manuel --last=Parra --password` . Create the home folder for the user created:`mkdir -m0750 -p /home/mparra` and set permissions for the user: `chown XXXXXXXX:XXXXXXXX /home/mparra/` where `XXXXXXXX` is the UID returned by item `9`
+10. Create a few users: `ipa user-add manuparra --first=Manuel --last=Parra --password` . Create the home folder for the user created:`mkdir -m0750 -p /home/mparra` and set permissions for the user: `chown XXXXXXXX:XXXXXXXX /home/mparra/` where `XXXXXXXX` is the UID returned by ``ipa user-add manuparra ...``.
 11. Check if IPA works. Exit of the server and try to connect: `ssh manuparra@192.168.10.220` If it is working, ssh ask to you about change your password and retype it twice. If you can access to the server, IPA server now is Working.
 
 ## Creating a replica

@@ -14,7 +14,7 @@ In our deployment we will create the next:
 + One IPA master server with name: `ipa.centos.local` and ip: `192.168.10.200`
 + One IPA replica of the master: `ipa2.centos.local` and ip: `192.168.10.201`
 
-![alt text](https://github.com/manuparra/FreeIPA/raw/master/architecture.png "Architecture")
+![alt text](https://github.com/manuparra/FreeIPA/raw/master/images/architecture.png "Architecture")
 
 ## Requeriments
 

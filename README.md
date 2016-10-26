@@ -58,14 +58,24 @@ In our deployment we will create the next:
 
 ## Creating a replica
 
-**In both servers**
+This part of the installation requiere jump to replica server and jump to the main freeIPA server, so note this.
 
-First of all we need to add to `/etc/hosts` the follow entries: 
+
+### Go to **ipa.centos.local** and **ipa2.centos.local** (replica), first of all we need to add to `/etc/hosts` the follow entries: 
 
 `192.168.10.220 ipa.centos.local ipa
+
 192.168.10.221 ipa2.centos.local ipa2`
 
-**In Replica server (ipa2.centos.local)**:
+### Go to Replica server **(ipa2.centos.local)**:
+
+1. Update packages: `yum update`
+2. Set the name of the server to ipa2.centos.local: `hostnamectl set-hostname ipa2.centos.local`
+3. Install the packages of freeIPA with `yum install ipa-server bind bind-dyndb-ldap`
+
+### Go to main server **(ipa.centos.local)**:
+
+
 
 
 

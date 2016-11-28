@@ -38,6 +38,7 @@ We need to centrally manage and correlate vital security information including:
 * Identity, policy, and audit information should be interoperable, and manageable. 
 
 ![DesktopFreeIPA](https://www.adelton.com/docs/idm/freeipa-webui-user-crop.png)
+
 *Image of Admin Desktop of freeIPA*
 
 
@@ -51,7 +52,7 @@ We need to centrally manage and correlate vital security information including:
 	* Dogtag certificate system, 
 	* SSSD and others.
 * Strong focus on ease of management and automation of installation and configuration tasks.
-* **Hide complexity of LDAP+Kerberos+CA+ ...DEPLOYMENT**. Easy use of CLI/WebUI.**
+* <B>Hide complexity of LDAP+Kerberos+CA+ ...DEPLOYMENT</B>. Easy use of CLI/WebUI.**
 * Full multi master replication for higher redundancy and scalability. Fine for your organization. Fault tollerant!.
 * Extensible management interfaces (CLI, Web UI, XMLRPC and JSONRPC API) and Python SDK
 

@@ -1,3 +1,34 @@
+# What is FreeIPA:
+
+FreeIPA is an integrated security information management solution combining Linux , 389 Directory Server, MIT Kerberos, NTP, DNS, Dogtag (Certificate System).
+It consists:
+
+1. web interface
+2. command-line administration tools.
+
+A FreeIPA server provides centralized authentication, authorization and account information about user, groups, hosts.
+
+One of the most important features consists on FreeIPA, can be configured in a FreeIPA Domain in order to provide redundancy and scalability.
+
+- Main Datastore: 389 Directory Server and LDAPv3
+- Sing-On provided by: MIT Kerberos KDC.
+- Authentication capabilities are instatiated by the Dogtag
+
+
+# Key Features:
+
+* Integrated security information management solution combining:	
+	* 389 Directory Server, 
+	* MIT Kerberos, 
+	* NTP, 
+	* DNS, 
+	* Dogtag certificate system, 
+	* SSSD and others.
+* Strong focus on ease of management and automation of installation and configuration tasks.
+* Full multi master replication for higher redundancy and scalability
+* Extensible management interfaces (CLI, Web UI, XMLRPC and JSONRPC API) and Python SDK
+
+
 # FreeIPA installation and deployment of one replica multimaster on CENTOS7
 
 FreeIPA installation Tutorial, Scripts and Procedures, step by step.

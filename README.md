@@ -1,4 +1,8 @@
-# What is FreeIPA:
+# Introduction to FreeIPA.
+
+![imgfreeipa](https://scottlinux.com/wp-content/uploads/2015/11/freeipa.jpg)
+
+## What is FreeIPA:
 
 FreeIPA is an integrated security information management solution combining Linux , 389 Directory Server, MIT Kerberos, NTP, DNS, Dogtag (Certificate System).
 It consists:
@@ -14,8 +18,30 @@ One of the most important features consists on FreeIPA, can be configured in a F
 - Sing-On provided by: MIT Kerberos KDC.
 - Authentication capabilities are instatiated by the Dogtag
 
+## The core:
 
-# Key Features:
+* Directory Server
+* Kerberos KDC: Authentication
+* PKIServer: Certificates for services(web,LDAP, TLS)
+* HTTP Server: Public web API
+
+![freeIPACORE](https://sites.google.com/site/manuparra/home/CoreFreeIPA.png)
+
+
+## Why do I use freeIPA in my organization:
+
+For efficiency, compliance and risk mitigation.
+We need to centrally manage and correlate vital security information including:
+
+* Identity (machine, user, virtual machines, groups, authentication credentials)
+* Policy (host based access control)
+* Identity, policy, and audit information should be interoperable, and manageable. 
+
+![DesktopFreeIPA](https://www.adelton.com/docs/idm/freeipa-webui-user-crop.png)
+*Image of Admin Desktop of freeIPA*
+
+
+## Key Features:
 
 * Integrated security information management solution combining:	
 	* 389 Directory Server, 
@@ -25,8 +51,28 @@ One of the most important features consists on FreeIPA, can be configured in a F
 	* Dogtag certificate system, 
 	* SSSD and others.
 * Strong focus on ease of management and automation of installation and configuration tasks.
-* Full multi master replication for higher redundancy and scalability
+* **Hide complexity of LDAP+Kerberos+CA+ ...DEPLOYMENT**. Easy use of CLI/WebUI.**
+* Full multi master replication for higher redundancy and scalability. Fine for your organization. Fault tollerant!.
 * Extensible management interfaces (CLI, Web UI, XMLRPC and JSONRPC API) and Python SDK
+
+
+## Features: Identity manager
+
+* Users and Groups:
+	* Automatic and unique UIDS across replicas:
+	* SSH public keys management
+	* Role-based account control
+* Hosts, host-groups, netgroups:
+	* Manage host life-cicle
+* Automatic group membership based on rules:
+	* Just add a user/host and all groups membership will be added.
+
+## Features: Policy Management
+
+HBAC
+
+* Control who (can), when and what to do
+* Using SSSD for auth throught PAM
 
 
 # FreeIPA installation and deployment with replica multimaster on CENTOS7

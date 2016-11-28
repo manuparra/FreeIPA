@@ -1,4 +1,5 @@
-# Introduction to FreeIPA.
+# Introduction to FreeIPA
+Manuel Parra & José Manuel Benítez, 2016
 
 ![imgfreeipa](https://scottlinux.com/wp-content/uploads/2015/11/freeipa.jpg)
 
@@ -52,7 +53,7 @@ We need to centrally manage and correlate vital security information including:
 	* Dogtag certificate system, 
 	* SSSD and others.
 * Strong focus on ease of management and automation of installation and configuration tasks.
-* <B>Hide complexity of LDAP+Kerberos+CA+ ...DEPLOYMENT</B>. Easy use of CLI/WebUI.**
+* <B>Hide complexity of LDAP+Kerberos+CA+ ...DEPLOYMENT</B>. Easy use of CLI/WebUI.
 * Full multi master replication for higher redundancy and scalability. Fine for your organization. Fault tollerant!.
 * Extensible management interfaces (CLI, Web UI, XMLRPC and JSONRPC API) and Python SDK
 
@@ -60,17 +61,17 @@ We need to centrally manage and correlate vital security information including:
 ## Features: Identity manager
 
 * Users and Groups:
-	* Automatic and unique UIDS across replicas:
-	* SSH public keys management
-	* Role-based account control
+	* Automatic and unique UIDS across replicas.
+	* SSH public keys management.
+	* Role-based account control.
 * Hosts, host-groups, netgroups:
-	* Manage host life-cicle
+	* Manage host life-cicle.
 * Automatic group membership based on rules:
 	* Just add a user/host and all groups membership will be added.
 
 ## Features: Policy Management
 
-HBAC
+<B>HBAC</B>
 
 * Control who (can), when and what to do
 * Using SSSD for auth throught PAM
@@ -101,7 +102,7 @@ In our deployment we will create the next:
 + Lastest versión of freeIPA from `yum`  (version in this moment: 4.2.0-15).
 + I had problem with low RAM, so I update memory of each server to 3GB.
 + Min. of 10GB of HDD storage for each server is okay.
-
++ Try to use freeIPA only for freeIPA services. It is recommended.
 
 
 
@@ -137,7 +138,232 @@ In our deployment we will create the next:
 12. Execute `ipa user-show admin` and copy UID number. Then execute: `chown XXXXXX:XXXXXX /home/admin` where XXXXXXX is the UID number of admin user. This is mandatory due to in replica server it try to connect with this user and it needs the home be created.
 13. Check if IPA works. Exit of the server and try to connect: `ssh manuparra@192.168.10.220` If it is working, ssh ask to you about change your password and retype it twice. If you can access to the server, IPA server now is Working.
 
+
+## Installing freeIPA clients
+
+First of all, go to the client and install:
+
+```
+yum install ipa-client ipa-admintools
+```
+
+then run:
+
+```
+ipa-client-install --enable-dns-updates
+```
+
+That's all.
+
+### Configuring KERBEROS:
+
+Modify the /etc/krb5.conf  
+
+```
+[libdefaults]
+ default_realm = CENTOS.LOCAL
+ dns_lookup_realm = true
+ dns_lookup_kdc = true
+ forwardable = yes
+ ticket_lifetime = 24h
+
+[realms]
+ CENTOS.LOCAL = {
+  kdc = ipa.centos.local:88
+  admin_server = ipa.centos.local:749
+  default_domain = centos.local
+ }
+[domain_realm]
+ .centos.local = CENTOS.LOCAL
+ centos.local = CENTOS.LOCAL
+ ```
+
+### Configuring Client SSH Access
+
+It is a good idea to make sure that time on the IPA client and server is synchronized:
+
+```
+ntpdate -s -p 8 -u ipa.centos.local
+```
+
+We obtain a Kerberos ticket for the admin user as usual with admin labours:
+
+ ```
+ kinit admin
+ ```
+
+ Add a host service on the IPA client:
+
+ ```
+ ipa-addservice host/ipa.centos.com
+ ```
+
+ipa-getkeytab -s ipa.centos.com -p host/ipa.centos.com -k /etc/krb5.keytab
+
+Client now is configured to accept incoming SSH connections and authenticate with the user's Kerberos credentials.
+
+## Authentication from anywhere:
+
+### API-REST
+
+Full RESTAPI available from:
+
+https://ipa.centos.local/ipa/session/json
+
+
+Meanwhile create a C-Shell script to test:
+```
+# testcurl.sh
+
+s_username=<your freeIPA username>
+s_password=<your password at freeIPA>
+IPAHOSTNAME=ipa.centos.local
+COOKIEJAR=the.cookie.jar
+
+klist -s
+use_kerberos=$?
+
+if [ ! -f $COOKIEJAR ] ; then
+ if [ $use_kerberos -eq 0 ] ; then
+        # Login with Kerberos
+        curl -v  \
+        -H referer:https://$IPAHOSTNAME/ipa  \
+        -c $COOKIEJAR -b $COOKIEJAR \
+        --cacert /etc/ipa/ca.crt  \
+        --negotiate -u : \
+        -X POST \
+        https://$IPAHOSTNAME/ipa/session/login_kerberos
+  else
+        # Login with user name and password
+        curl -v  \
+        -H referer:https://$IPAHOSTNAME/ipa  \
+        -H "Content-Type:application/x-www-form-urlencoded" \
+        -H "Accept:text/plain"\
+        -c $COOKIEJAR -b $COOKIEJAR \
+        --cacert /etc/ipa/ca.crt  \
+        --data "user=$s_username&password=$s_password" \
+        -X POST \
+        https://$IPAHOSTNAME/ipa/session/login_password
+  fi
+fi
+
+# Send user_find method request
+curl -v  \
+	-H referer:https://$IPAHOSTNAME/ipa  \
+        -H "Content-Type:application/json" \
+        -H "Accept:applicaton/json"\
+        -c $COOKIEJAR -b $COOKIEJAR \
+        --cacert /etc/ipa/ca.crt  \
+        -d  '{"method":"user_find","params":[[""],{}],"id":0}' \
+        -X POST \
+        https://$IPAHOSTNAME/ipa/session/json
+
+```
+
+
+### PHP
+
+Directly from a PHP library for connect and use some features of the freeIPA:
+
+Download and install PHP package:
+
+![https://github.com/gnumoksha/php-freeipa]
+
+Get the certificate of our freeIPA server:
+```
+wget --no-check-certificate https://ipa.centos.local/ipa/config/ca.crt -O certs/ipa.centos.local_ca.crt
+```
+
+Code:
+```
+<?php
+require_once('./bootstrap.php');
+$host = 'ipa.centos.local';
+$certificate = __DIR__ . "./certs/ipa.centos.local_ca.crt";
+$ipa = new \FreeIPA\APIAccess\Main($host, $certificate);
+?>
+```
+
+Auth example:
+```
+<?php 
+
+$user = 'admin';
+$password = 'Secret123';
+$auth = $ipa->connection()->authenticate($user, $password);
+if ($auth) {
+    print 'Logged in';
+} else {
+    $auth_info = $ipa->connection()->getAuthenticationInfo();
+    var_dump($auth_info);
+}
+?>
+```
+
+Showing user information:
+```
+<?php
+$r = $ipa->user()->get($user);
+var_dump($r);
+?>
+```
+
+
+### APACHE
+
+Install Apache, and modules
+```
+yum install httpd mod_auth_kerb mod_ssl
+```
+
+* Note localhost is your web server name. In our case: http://localhost *
+
+Admin login and generate KeyTable:
+```
+kinit admin
+ipa-getkeytab -s ipa.centos.local -p HTTP/localhost -k /etc/httpd/conf/httpd.keytab
+```
+
+Then:
+```
+chown apache /etc/httpd/conf/httpd.keytab
+```
+
+Create the SSL keys for freeIPA webserver:
+```
+ipa-getcert request -k /etc/pki/tls/private/webserver.key -f /etc/pki/tls/certs/webserver.crt -K HTTP/localhost -g 3072
+```
+
+Set the certificate paths in ``/etc/httpd/conf.d/ssl.conf``:
+
+```
+[...]
+SSLCertificateFile /etc/pki/tls/certs/webserver.crt
+SSLCertificateKeyFile /etc/pki/tls/private/webserver.key
+SSLCertificateChainFile /etc/ipa/ca.crt
+[...]
+```
+
+The final httpd authentication settings for ‘mod_auth_kerb‘ are done in /etc/httpd/conf.d/auth_kerb.conf or any vhost you want:
+
+```
+<Location />
+  SSLRequireSSL
+  AuthType Kerberos
+  AuthName "Kerberos Login"
+  KrbMethodNegotiate On
+  KrbMethodK5Passwd On
+  KrbAuthRealms centos.local
+  Krb5KeyTab /etc/httpd/conf/httpd.keytab
+  require valid-user
+</Location>
+```
+
+That's all. Restart apache, and Location `/` will ask about authentication on freeIPA.
+
 ## Creating a replica
+
+<B>Take care: Both servers must be the same time/hour or must by synced by ntpdate. Check it with ``date``<B>
 
 This part of the installation requiere jump to replica server and jump to the main freeIPA server, so note this.
 

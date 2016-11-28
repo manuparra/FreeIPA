@@ -206,19 +206,20 @@ ipa-getkeytab -s ipa.centos.com -p host/ipa.centos.com -k /etc/krb5.keytab
 
 Client now is configured to accept incoming SSH connections and authenticate with the user's Kerberos credentials.
 
-## Authentication from anywhere:
+## Authentication from anywhere
 
-### API-REST
+Some external authentication methods to integrate freeIPA-
+
+### APIREST
 
 Full RESTAPI available from:
 
 https://ipa.centos.local/ipa/session/json
 
 
-Meanwhile create a C-Shell script to test:
-```
-# testcurl.sh
+Meanwhile create a C-Shell script to test: ```testcurl.sh``
 
+```
 s_username=<your freeIPA username>
 s_password=<your password at freeIPA>
 IPAHOSTNAME=ipa.centos.local
@@ -251,7 +252,7 @@ if [ ! -f $COOKIEJAR ] ; then
   fi
 fi
 
-# Send user_find method request
+
 curl -v  \
 	-H referer:https://$IPAHOSTNAME/ipa  \
         -H "Content-Type:application/json" \

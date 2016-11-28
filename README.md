@@ -29,7 +29,7 @@ One of the most important features consists on FreeIPA, can be configured in a F
 ![freeIPACORE](https://sites.google.com/site/manuparra/home/CoreFreeIPA.png)
 
 
-## Why do I use freeIPA in my organization:
+## Why I use freeIPA in my organization:
 
 For efficiency, compliance and risk mitigation.
 We need to centrally manage and correlate vital security information including:

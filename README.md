@@ -198,7 +198,11 @@ We obtain a Kerberos ticket for the admin user as usual with admin labours:
  ipa-addservice host/ipa.centos.com
  ```
 
+and then:
+
+```
 ipa-getkeytab -s ipa.centos.com -p host/ipa.centos.com -k /etc/krb5.keytab
+``
 
 Client now is configured to accept incoming SSH connections and authenticate with the user's Kerberos credentials.
 
@@ -308,6 +312,9 @@ var_dump($r);
 ?>
 ```
 
+### From Web Forms (virtually any webapplication)
+
+To do. Review: http://www.freeipa.org/page/Web_App_Authentication
 
 ### APACHE
 
@@ -316,7 +323,7 @@ Install Apache, and modules
 yum install httpd mod_auth_kerb mod_ssl
 ```
 
-* Note localhost is your web server name. In our case: http://localhost *
+**Note**: localhost is your web server name. In our case: ``http://localhost``
 
 Admin login and generate KeyTable:
 ```
@@ -344,7 +351,7 @@ SSLCertificateChainFile /etc/ipa/ca.crt
 [...]
 ```
 
-The final httpd authentication settings for ‘mod_auth_kerb‘ are done in /etc/httpd/conf.d/auth_kerb.conf or any vhost you want:
+The final httpd authentication settings for ``mod_auth_kerb`` are done in ``/etc/httpd/conf.d/auth_kerb.conf`` or any vhost you want:
 
 ```
 <Location />

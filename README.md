@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # What is FreeIPA:
 
 FreeIPA is an integrated security information management solution combining Linux , 389 Directory Server, MIT Kerberos, NTP, DNS, Dogtag (Certificate System).
@@ -30,6 +31,9 @@ One of the most important features consists on FreeIPA, can be configured in a F
 
 
 # FreeIPA installation and deployment of one replica multimaster on CENTOS7
+=======
+# FreeIPA installation and deployment with replica multimaster on CENTOS7
+>>>>>>> origin/master
 
 FreeIPA installation Tutorial, Scripts and Procedures, step by step.
 
@@ -121,9 +125,9 @@ This part of the installation requiere jump to replica server and jump to the ma
 
 ### Go to Replica server **(ipa2.centos.local)**:
 
-1. Execute again `kinit admin`
-2. Execute `ipa-replica-install --setup-ca --setup-dns --no-forwarders /var/lib/ipa/replica-info-ipa2.centos.local.gpg` . Note that `/var/lib/ipa/replica-info-ipa2.centos.local.gpg` must be there, because in the previous step it was copied from main server.
-3. Wait a few minutes.
+1. Execute `ipa-replica-install --setup-ca --setup-dns --no-forwarders /var/lib/ipa/replica-info-ipa2.centos.local.gpg` . Note that `/var/lib/ipa/replica-info-ipa2.centos.local.gpg` must be there, because in the previous step it was copied from main server.
+2. Wait a few minutes.
+3. Execute again `kinit admin`
 4. That's all. Verify if your new replica is working executing this command: `ipa-replica-manage list` . It returns the next:
   
 ```

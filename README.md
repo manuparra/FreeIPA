@@ -3,6 +3,30 @@ Manuel Parra & José Manuel Benítez, 2016
 
 ![imgfreeipa](https://scottlinux.com/wp-content/uploads/2015/11/freeipa.jpg)
 
+Table of Contents
+=================
+
+   * [Introduction to FreeIPA](#introduction-to-freeipa)
+      * [What is FreeIPA:](#what-is-freeipa)
+      * [The core:](#the-core)
+      * [Why I use freeIPA in my organization:](#why-i-use-freeipa-in-my-organization)
+      * [Key Features:](#key-features)
+      * [Features: Identity manager](#features-identity-manager)
+      * [Features: Policy Management](#features-policy-management)
+   * [FreeIPA installation and deployment with replica multimaster on CENTOS7](#freeipa-installation-and-deployment-with-replica-multimaster-on-centos7)
+      * [Planning the server and architecture to deploy. Requirements.](#planning-the-server-and-architecture-to-deploy-requirements)
+      * [Requeriments](#requeriments)
+      * [Installing Master IPA Server.](#installing-master-ipa-server)
+      * [Installing freeIPA clients](#installing-freeipa-clients)
+         * [Configuring KERBEROS:](#configuring-kerberos)
+         * [Configuring Client SSH Access](#configuring-client-ssh-access)
+      * [Authentication from anywhere](#authentication-from-anywhere)
+         * [APIREST](#apirest)
+         * [PHP](#php)
+         * [From Web Forms (virtually any webapplication)](#from-web-forms-virtually-any-webapplication)
+         * [APACHE](#apache)
+      * [Creating a replica](#creating-a-replica)
+
 ## What is FreeIPA:
 
 FreeIPA is an integrated security information management solution combining Linux , 389 Directory Server, MIT Kerberos, NTP, DNS, Dogtag (Certificate System).
@@ -182,27 +206,31 @@ Modify the /etc/krb5.conf
 
 It is a good idea to make sure that time on the IPA client and server is synchronized:
 
+
 ```
 ntpdate -s -p 8 -u ipa.centos.local
 ```
 
 We obtain a Kerberos ticket for the admin user as usual with admin labours:
 
- ```
- kinit admin
- ```
+```
+kinit admin
+```
 
- Add a host service on the IPA client:
+Add a host service on the IPA client:
 
- ```
- ipa-addservice host/ipa.centos.com
- ```
+```
+ipa-addservice host/ipa.centos.com
+```
+
+
 
 and then:
 
 ```
 ipa-getkeytab -s ipa.centos.com -p host/ipa.centos.com -k /etc/krb5.keytab
-``
+```
+
 
 Client now is configured to accept incoming SSH connections and authenticate with the user's Kerberos credentials.
 

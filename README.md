@@ -153,6 +153,14 @@ In our deployment we will create the next:
 		  * 88, 464: kerberos
 		  * 53: bind
 		  * 123: ntp
+		  
+	`for i in 80 443 389 636 88 464; do firewall-cmd --add-port=$i/tcp --permanent; done`
+	and
+	`for i in 88 464 123; do firewall-cmd --add-port=$i/udp --permanent; done`
+	and
+	`firewall-cmd --reload`
+	
+	
 8. Start authentication with Kerberos ticket: 
 `kinit admin`
 9. Set default shell for the users:
